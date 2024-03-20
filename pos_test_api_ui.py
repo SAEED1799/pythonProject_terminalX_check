@@ -17,9 +17,13 @@ class posTitleTest(unittest.TestCase):
         self.firefox_options = webdriver.FirefoxOptions()
         # self.edge_options = webdriver.EdgeOptions()
         self.browsers_list = [self.chrome_options, self.firefox_options]
+        options = webdriver.ChromeOptions()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")  # This line is often necessary in CI environments
+        options.add_argument("--disable-dev-shm-usage")  # This can help in environments with limited resources
         self.my_api = APIWrapper()
         self.url = "https://www.terminalx.com/pg/MutationAddAnyProductsToAnyCart"
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(options=options)
         self.driver.get("https://www.terminalx.com/")
 
     def test_login_to_terminal_x(self):
