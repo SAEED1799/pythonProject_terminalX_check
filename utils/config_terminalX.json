@@ -1,0 +1,13 @@
+{
+  "HAB_URL": "http://localhost:4444/wd/hub",
+  "user_name": "Saeed",
+  "url" : "https://www.terminalx.com/",
+  "parallel" : true,
+  "grid": false,
+  "serial" : false,
+  "browser_name": "chrome",
+  "browser_types": ["chrome","edge","firefox"],
+  "platform" : "windows",
+  "Cookie": "syte_uuid=8aec36f0-e1e9-11ee-91fa-ab30a63932d8; _gcl_au=1.1.1432958371.1710410368; PHPSESSID=b66l8hriiu0ebo2eshib867448; _fbp=fb.1.1710410368098.1603310446; _tt_enable_cookie=1; _ttp=m8Q9hhUkfDKHM8NhnD7sXmYXewC; glassix-visitor-id-v2-b6d2bc1d-dcdc-4766-b620-28559157075a=ab845d32-8366-419f-b392-301556435cb0; fe-version=7b110f0660db1bb8ab526e088cc9148d2e3ddc3a; language=he; wz.uid=q17SBw8Il61I267G510C17u58; current-universe-id-1=67; syte_ab_tests={}; _gid=GA1.2.1711495902.1710835220; _ga=GA1.1.539162828.1710410367; _uetsid=bbc9c2d0e5c611eeae02e7e838525cb6; _uetvid=8b8fa710e1e911ee878375296a5e3c47; RSESSIONID=a5e55654-e18e-463f-8cec-5e78e3d884b2; stimgs={%22sessionId%22:10977087%2C%22didReportCameraImpression%22:false%2C%22newUser%22:null}; slider_animation=1; wz_visited_pages=%7B%22counter%22:14%7D; _dc_gtm_UA-99383422-1=1; private_content_version=2309a3e235169b0b27cd0c330845479f; _ga_Z2CGV88685=GS1.1.1710838210.5.1.1710839948.0.0.0",
+
+}
