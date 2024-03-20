@@ -18,8 +18,8 @@ pipeline {
 
         stage('pos_test_api') {
             steps {
-                bat "docker run --name pos_test_api_ui ${IMAGE_NAME}:${TAG} python pos_test_api_ui.py"
-                bat "docker rm pos_test_api_ui"
+                bat "docker run --name add_to_cart ${IMAGE_NAME}:${TAG} python pos_test_api_ui.py"
+                bat "docker rm add_to_cart"
             }
         }
     }
