@@ -74,6 +74,7 @@ class posTitleTest(unittest.TestCase):
 
         self.test_login_to_terminal_x()
         self.my_api.api_post_request(self.url)
+        time.sleep(5)
         #click on cart
         try:
             card_button = WebDriverWait(self.driver, 20).until(
