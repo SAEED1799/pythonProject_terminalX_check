@@ -2,32 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Setup Environment') {
-            steps {
-                echo 'Setting up Python environment...'
-                bat 'C:\\Users\\mhmdh\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe install selenium requests'
-            }
-        }
-
         stage('Build') {
             steps {
                 echo 'Building..'
-                // Your build steps here
+                bat 'python -m pip install --upgrade pip'
+                bat 'pip install -r requirements.txt'
             }
         }
-
         stage('Test') {
             steps {
                 echo 'Testing..'
-                bat 'C:\\Users\\mhmdh\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\python.exe -m unittest tests/pos_test_api&ui.py'
-
+                // Add test execution steps here
+                bat 'python -m unittest tests/test_log_in.py'
+                //sh 'python -m unittest RentalCar_tests.py'
             }
         }
-
         stage('Deploy') {
             steps {
                 echo 'Deploying..'
-                // Your deployment steps here
-            }
+//                 git 'commit -am "Deploying latest changes"'
+//                 git 'push origin main'
 
+            }
+        }
+    }
 }

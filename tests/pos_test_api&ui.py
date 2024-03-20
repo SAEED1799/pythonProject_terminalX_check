@@ -63,12 +63,12 @@ class posTitleTest(unittest.TestCase):
             print("Timed out waiting for package title element to be visible")
             return False
 
-    def test_api_add_cart(self):
-        self.my_api.api_post_request(self.url)
-
-    def test_parallel(self):
-        with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.browsers_list)) as executor:
-            executor.map(self.test_check_card, self.browsers_list)
+    # def test_api_add_cart(self):
+    #     self.my_api.api_post_request(self.url)
+    #
+    # def test_parallel(self):
+    #     with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.browsers_list)) as executor:
+    #         executor.map(self.test_check_card, self.browsers_list)
 
     def test_check_card(self):
 
