@@ -13,7 +13,7 @@ pipeline {
             steps {
                 echo 'Testing..'
                 // Add test execution steps here
-                bat 'python -m unittest tests/pos_test_api&ui.py'
+                bat 'python -m unittest tests/test_log_in.py'
                 //sh 'python -m unittest RentalCar_tests.py'
             }
         }
