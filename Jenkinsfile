@@ -16,10 +16,10 @@ pipeline {
             }
         }
 
-        stage('Run Add Food to Meal Test') {
+        stage('pos_test_api') {
             steps {
-                bat "docker run --name tests/pos_test_api&ui ${IMAGE_NAME}:${TAG} python tests/pos_test_api&ui.py"
-                bat "docker rm tests/pos_test_api&ui"
+                bat "docker run --name pos_test_api_ui ${IMAGE_NAME}:${TAG} python tests/pos_test_api_ui.py"
+                bat "docker rm tests/pos_test_api_ui"
             }
         }
     }
