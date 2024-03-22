@@ -6,7 +6,7 @@ from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from logic.login_page import LoginPage
 from infra.api_wrapper import APIWrapper
 
 
@@ -25,6 +25,7 @@ class posTitleTest(unittest.TestCase):
         self.url = "https://www.terminalx.com/pg/MutationAddAnyProductsToAnyCart"
         self.driver = webdriver.Chrome(options=options)
         self.driver.get("https://www.terminalx.com/")
+        self.login_page = LoginPage(self.driver)
 
     def test_login_to_terminal_x(self):
         # Wait for the Login button to be clickable
@@ -67,19 +68,19 @@ class posTitleTest(unittest.TestCase):
             print("Timed out waiting for package title element to be visible")
             return False
 
-    # def test_api_add_cart(self):
-    #     self.my_api.api_post_request(self.url)
-    #
+    def test_api_add_cart(self):
+        self.my_api.api_post_request(self.url)
+
     # def test_parallel(self):
     #     with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.browsers_list)) as executor:
     #         executor.map(self.test_check_card, self.browsers_list)
 
     def test_check_card(self):
-
+        #self.login_page.login_flow()
         self.test_login_to_terminal_x()
         self.my_api.api_post_request(self.url)
         time.sleep(5)
-        #click on cart
+        # click on cart
         try:
             card_button = WebDriverWait(self.driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, "//*[@id='app-root']/div[2]/header/div"
