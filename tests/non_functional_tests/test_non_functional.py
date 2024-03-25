@@ -23,7 +23,6 @@ class SearchTest(unittest.TestCase):
         self.driver.maximize_window()
         self.driver.get("https://www.terminalx.com/")
         # Assuming APIWrapper and other page objects are correctly implemented
-        self.my_api = APIWrapper()
         self.login_page = LoginPage(self.driver)
         self.checkout_page = Check_Out_Page(self.driver)  # Should pass self.driver instead of self
 

@@ -18,7 +18,7 @@ pipeline {
 
         stage('test_runner') {
             steps {
-                bat "docker run --name add_to_cart ${IMAGE_NAME}:${TAG} python test_runner.py"
+                bat "docker run --name add_to_cart ${IMAGE_NAME}:${TAG} python report_unit.py"
                 bat "docker rm add_to_cart"
             }
         }

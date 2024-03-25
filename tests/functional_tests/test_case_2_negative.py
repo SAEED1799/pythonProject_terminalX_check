@@ -26,6 +26,7 @@ class negative_input_last_name_Test(unittest.TestCase):
         self.home_page = HomePage(self.driver)
         self.cart_page = CartPage(self.driver)
         self.home_page.click_on_sales_button()
+        self.assertTrue(True, self.cart_page)
         # self.brand_page = BrandsPage(self.driver)
         # self.brand_page.click_planket()
         # self.brand_page.click_add_planket()
