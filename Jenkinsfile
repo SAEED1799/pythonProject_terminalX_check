@@ -34,48 +34,41 @@
 pipeline {
     agent any
 
-    environment {
-        // Define your Python virtual environment path if needed
-        VENV_PATH = '/path/to/your/virtualenv'
-    }
-
     stages {
-        stage('Prepare') {
+        stage('Checkout') {
             steps {
-                echo 'Preparing the environment...'
-                // If you're using a virtual environment, activate it
-                sh '${VENV_PATH}/bin/activate'
+                // Check out your code from source control
+                git 'https://github.com/SAEED1799/pythonProject_terminalX_check.git'
+            }
+        }
+
+        stage('Set up Python Environment') {
+            steps {
+                // Set up your Python environment and install dependencies
+                // This assumes you have a requirements.txt file
+                script {
+                    sh 'python -m venv venv'
+                    sh '.\\venv\\Scripts\\activate'
+                    sh 'pip install -r requirements.txt'
+                }
             }
         }
 
         stage('Run Tests') {
             steps {
-                echo 'Running tests...'
-                // Run your Python test script
-                sh 'python report_unit.py'
+                // Run your tests using report_unit.py
+                script {
+                    sh '.\\venv\\Scripts\\activate'
+                    sh 'python report_unit.py'
+                }
             }
         }
 
-        stage('Publish Report') {
+        stage('Publish HTML Report') {
             steps {
-                echo 'Publishing HTML report...'
-                // Assuming the script generates an HTML report in the 'test-reports' directory
-                publishHTML target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'test-reports',
-                    reportFiles: 'TestReport.html', // Update this if your report file has a different name
-                    reportName: 'HTML Test Report'
-                ]
+                // Assumes HtmlTestRunner outputs reports to 'test-reports' directory
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'test-reports', reportFiles: 'TestReport.html', reportName: 'HTML Test Report'])
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Cleaning up...'
-            // Any post-build cleanup steps go here
         }
     }
 }
