@@ -1,0 +1,18 @@
+{
+  "Tests": {
+    "baseURL": "https://www.terminalx.com",
+    "loginCredentials": {
+      "email": "saeed.esawi99@gmail.com",
+      "password": "Saeed@1234",
+      "expected_user_name": "saeed"
+    },
+    "product": {
+      "qty": 1,
+      "sku": "Z10291510603",
+      "qty_update": 2
+    },
+    "customerInfo": {
+      "customer_id": 1176992
+    }
+  }
+}

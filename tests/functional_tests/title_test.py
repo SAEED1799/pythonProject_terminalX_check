@@ -3,7 +3,7 @@ import unittest
 from selenium import webdriver
 
 
-class GulliverTitleTest(unittest.TestCase):
+class terminalTitleTest(unittest.TestCase):
 
     def setUp(self):
         self.chrome_options = webdriver.ChromeOptions()
@@ -13,9 +13,9 @@ class GulliverTitleTest(unittest.TestCase):
 
     def test_parallel(self):
         with concurrent.futures.ThreadPoolExecutor(max_workers=len(self.browsers_list)) as executor:
-            executor.map(self.test_title, self.browsers_list)
+            executor.map(self.t_title, self.browsers_list)
 
-    def test_title(self,options):
+    def t_title(self,options):
         # Initialize WebDriver (in this case, Chrome)
         driver = webdriver.Remote(command_executor='http://localhost:4444/wd/hub', options=options)
 

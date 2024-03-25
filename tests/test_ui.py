@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from infra.api_wrapper import APIWrapper
+from infra.api_infra.api_wrapper import APIWrapper
 
 
 class TerminalXTest(unittest.TestCase):
