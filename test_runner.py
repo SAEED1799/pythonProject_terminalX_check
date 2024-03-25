@@ -1,8 +1,9 @@
 import unittest
 
-import pos_test_api_ui
+import HtmlTestRunner
+
 from tests.functional_tests import test_case_2_negative, test_check_price, test_Check_Sale_Page_Is_OK, test_log_in, \
-    test_remove_item, test_search_is_good, title_test
+    test_search_is_good, title_test
 from tests.api_tests import test_api_page
 from tests.test_api_continue_ui import test_add_api_check_ui
 
@@ -17,5 +18,6 @@ if __name__ == "__main__":
         suite.addTests(unittest.TestLoader().loadTestsFromModule(module))
 
     # Run the test suite
-    runner = unittest.TextTestRunner(verbosity=2)
+    #runner = unittest.TextTestRunner(verbosity=2)
+    runner = HtmlTestRunner.HTMLTestRunner(output='test-reports')
     runner.run(suite)
