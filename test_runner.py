@@ -18,6 +18,6 @@ if __name__ == "__main__":
         suite.addTests(unittest.TestLoader().loadTestsFromModule(module))
 
     # Run the test suite
-    #runner = unittest.TextTestRunner(verbosity=2)
-    runner = HtmlTestRunner.HTMLTestRunner(output='test-reports')
+    runner = unittest.TextTestRunner(verbosity=2)
+    #runner = HtmlTestRunner.HTMLTestRunner(output='test-reports')
     runner.run(suite)
