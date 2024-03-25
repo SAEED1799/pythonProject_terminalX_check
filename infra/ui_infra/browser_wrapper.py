@@ -24,7 +24,7 @@ class BrowserWrapper:
 
     # return the webdriver based on the config file options
     def get_driver(self, browser):
-        browser_type = self.config["browser"]
+        browser_type = self.config["browser_name"]
         if self.config["grid"]:
             options = self.set_up_capabilities(browser)
             self.driver = webdriver.Remote(command_executor=self.config["HAB_URL"], options=options)
