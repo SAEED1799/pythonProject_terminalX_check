@@ -4,7 +4,6 @@ from selenium import webdriver
 from logic.cart_page import CartPage
 from logic.home_page import HomePage
 from logic.login_page import LoginPage
-from infra.api_infra.api_wrapper import APIWrapper
 from logic.check_out_payment_page import Check_Out_Page
 
 
@@ -12,7 +11,6 @@ class negative_input_last_name_Test(unittest.TestCase):
 
     def setUp(self):
         self.chrome_options = webdriver.ChromeOptions()
-        self.my_api = APIWrapper()
         self.driver = webdriver.Chrome()
         self.driver.get("https://www.terminalx.com/")
         self.url_add_to_cart = "https://www.terminalx.com/pg/MutationAddAnyProductsToAnyCart"

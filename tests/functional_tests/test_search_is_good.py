@@ -4,7 +4,6 @@ from logic.brands_page import BrandsPage
 
 from logic.home_page import HomePage
 from logic.login_page import LoginPage
-from infra.api_infra.api_wrapper import APIWrapper
 from logic.check_out_payment_page import Check_Out_Page
 
 
@@ -12,7 +11,6 @@ class searchTest(unittest.TestCase):
 
     def setUp(self):
         self.chrome_options = webdriver.ChromeOptions()
-        self.my_api = APIWrapper()
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.get("https://www.terminalx.com/")
