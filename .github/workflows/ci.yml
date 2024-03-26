@@ -1,40 +1,42 @@
-name: Run pytest tests
+name: Python CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    strategy:
+      matrix:
+        python-version: [3.9, 3.8 , 3.12] # Fallback to 3.8 if you encounter issues with 3.9
 
-    - name: Set up Python
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: '3.12'
+        python-version: ${{ matrix.python-version }}
+
+    - name: Upgrade pip and setuptools
+      run: python -m pip install --upgrade pip setuptools
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Setup ChromeDriver
-      uses: browser-actions/setup-chrome@latest
-      with:
-        chrome-version: latest
+    - name: Run tests
+      run: python report_unit.py
 
-    - name: Set PYTHONPATH
-      run: echo "PYTHONPATH=${{ github.workspace }}" >> $GITHUB_ENV
+    - name: Install Distutils (Optional)
+      if: failure() # This step runs only if the previous steps fail
+      run: sudo apt-get install -y python3-distutils
 
-    - name: Run pytest for a specific script
+    - name: Retry Install dependencies (Optional)
+      if: failure() # This step runs only if installing distutils is necessary
       run: |
-        pytest report_unit.py --html=report/report.html
-      continue-on-error: true
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Upload HTML report as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: pytest-html-report
-         path:report
+    - name: Retry Run tests (Optional)
+      if: failure() # This step runs only if retrying is necessary after installing distutils
+      run: python report_unit.py
