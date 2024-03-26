@@ -1,25 +1,35 @@
 pipeline {
     agent any
 
-    environment {
-        // Define the Docker image name
-        IMAGE_NAME = 'tests'
-        TAG = 'latest'
-    }
-
     stages {
-//         stage('Build Docker Image') {
-//             steps {
-//                 script {
-//                     def customImage = docker.build("${IMAGE_NAME}:${TAG}")
-//                 }
-//             }
-//         }
-
-        stage('test_runner') {
+        stage('Setup Environment') {
             steps {
-                bat "docker run --name add_to_cart ${IMAGE_NAME}:${TAG} python report_unit.py"
-                bat "docker rm add_to_cart"
+                echo '$path'
+                echo 'Setting up Python environment...'
+                bat 'C:\\Users\\hp\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Python 3.12\\python.exe -m venv venv'
+                bat 'venv\\Scripts\\python.exe -m pip install --upgrade pip'
+                bat 'venv\\Scripts\\pip.exe install -r requirements.txt'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                // Your build steps here
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+                bat "venv\\Scripts\\python.exe -m unittest report_unit.py"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying..'
+                // Your deployment steps here
             }
         }
     }
@@ -27,7 +37,17 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            bat "docker rmi ${IMAGE_NAME}:${TAG}"
- }
-}
+            bat "rd /s /q venv"
+        }
+
+        success {
+            echo 'Build succeeded.'
+            // Additional steps for successful build
+        }
+
+        failure {
+            echo 'Build failed.'
+            // Additional steps for failed build
+                    }
+            }
 }
