@@ -1,5 +1,4 @@
 import unittest
-from selenium.common.exceptions import TimeoutException
 
 # Import test modules
 from tests.functional_tests import test_case_2_negative, test_check_price, test_Check_Sale_Page_Is_OK
