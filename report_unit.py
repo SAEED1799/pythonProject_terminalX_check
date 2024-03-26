@@ -1,21 +1,26 @@
 import unittest
 
-# Import test modules
-from tests.functional_tests import test_case_2_negative, test_check_price, test_Check_Sale_Page_Is_OK
+# Import your specific test classes
+from tests.functional_tests import test_case_2_negative, test_check_price, test_Check_Sale_Page_Is_OK, test_log_in, \
+    test_remove_item, test_search_is_good, title_test
+from tests.api_tests import test_api_page
+from tests.test_api_continue_ui import test_add_api_check_ui
 
-
-def create_suite():
+if __name__ == "__main__":
+    # Create a test suite combining all test cases
     suite = unittest.TestSuite()
 
-    # Load tests from the test modules
+    # Assuming each module contains a TestCase class, add them to the suite
+    # This part may need adjustments based on how your tests are structured
     for test_module in [test_case_2_negative, test_check_price, test_Check_Sale_Page_Is_OK]:
-        # This assumes each module has a TestCase-derived class following the `unittest` pattern.
-        suite.addTests(unittest.TestLoader().loadTestsFromModule(test_module))
+        for test_case in unittest.TestLoader().loadTestsFromModule(test_module):
+            suite.addTest(test_case)
 
-    return suite
+    # Define the directory where the HTML report will be saved
+    report_dir = 'tests/test-reports'
 
+    # Run the test suite with HtmlTestRunner to generate an HTML report
 
-if __name__ == '__main__':
-    runner = unittest.TextTestRunner(verbosity=2)
-    test_suite = create_suite()
-    runner.run(test_suite)
+    runner = HtmlTestRunner.HTMLTestRunner(output=report_dir, report_title='Test Report', combine_reports=True,
+                                           add_timestamp=True)
+    runner.run(suite)

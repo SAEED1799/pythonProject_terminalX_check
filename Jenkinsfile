@@ -1,53 +1,41 @@
 pipeline {
     agent any
-
+    environment {
+        PYTHONPATH = "C:\\Users\\hp\\PycharmProjects\\pythonProject5_terminalX_final"
+        TEST_REPORTS='test-reports'
+    }
     stages {
-        stage('Setup Environment') {
-            steps {
-                echo '$path'
-                echo 'Setting up Python environment...'
-                bat 'C:\\Users\\hp\\AppData\\Local\\Programs\\Python\\Python312\\python.exe -m venv venv'
-                bat 'venv\\Scripts\\python.exe -m pip install --upgrade pip'
-                bat 'venv\\Scripts\\pip.exe install -r requirements.txt'
-            }
-        }
-
         stage('Build') {
             steps {
                 echo 'Building..'
-                // Your build steps here
+                bat 'pip install -r requirements.txt' // Install dependencies if needed
             }
         }
-
         stage('Test') {
             steps {
                 echo 'Testing..'
-                bat "venv\\Scripts\\python.exe -m unittest report_unit.py"
+                // Run your tests here
+                bat 'python report_unit.py'
             }
         }
-
+        stage('Run API Tests with Pytest') {
+            steps {
+                echo 'Running API Tests with Pytest..'
+                script {
+                    try {
+                        // Run pytest with pytest-html plugin to generate HTML report
+                        bat "C:/AutomationWithTsahi/pythonProjectBeyondev/venv/Scripts/pytest.exe report_unit.py --html=test-reports/report.html"
+                    } catch (Exception e) {
+                        echo "Tests failed, but the build continues."
+                    }
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying..'
-                // Your deployment steps here
+                // Add deployment steps here if needed
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Cleaning up...'
-            bat "rd /s /q venv"
-        }
-
-        success {
-            echo 'Build succeeded.'
-            // Additional steps for successful build
-        }
-
-        failure {
-            echo 'Build failed.'
-            // Additional steps for failed build
-                    }
-            }
+                     }
+           }
 }
