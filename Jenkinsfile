@@ -24,7 +24,7 @@ pipeline {
                 script {
                     try {
                         // Run pytest with pytest-html plugin to generate HTML report
-                        bat "C:/AutomationWithTsahi/pythonProjectBeyondev/venv/Scripts/pytest.exe report_unit.py --html=test-reports/report.html"
+                        bat "C:/Users/hp/anaconda3/Scripts/pytest.exe report_unit.py --html=test-reports/report.html"
                     } catch (Exception e) {
                         echo "Tests failed, but the build continues."
                     }
