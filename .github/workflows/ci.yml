@@ -1,40 +1,46 @@
-name: Run pytest tests
+name: Python Application Test Workflow
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.12]
 
     steps:
-    - name: Checkout code
+    - name: Check out repository code
       uses: actions/checkout@v2
 
-    - name: Set up Python
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: '3.12.0'
+        python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Setup ChromeDriver
-      uses: browser-actions/setup-chrome@latest
-      with:
-        chrome-version: latest
+    # If your UI tests require a specific web browser and webdriver, install them
+    - name: Set up Chrome browser for Selenium tests
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser
+        sudo apt-get install -y chromium-chromedriver
+        echo "CHROMEWEBDRIVER=$(which chromedriver)" >> $GITHUB_ENV
+        echo "CHROME_BIN=/usr/bin/chromium-browser" >> $GITHUB_ENV
 
-#    - name: Run tests
-#      run: python tests_example_run.py
+    # Run your test script
+    - name: Run tests
+      run: |
+        python report_unit.py
 
-
-    - name: Run pytest tests and generate HTML report
-      run: pytest report_unit.py --html=report/report.html
-      continue-on-error: true
-
-    - name: Upload HTML report as artifact
+    # Optionally, upload test reports as artifacts
+    - name: Upload Test Report
+      if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: pytest-html-report
-         path:report
+        name: Test Reports
+        path: path/to/your/test-reports/
