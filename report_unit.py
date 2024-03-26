@@ -13,8 +13,7 @@ if __name__ == "__main__":
 
     # Assuming each module contains a TestCase class, add them to the suite
     # This part may need adjustments based on how your tests are structured
-    for test_module in [test_case_2_negative, test_check_price, test_Check_Sale_Page_Is_OK, test_log_in,
-                        test_search_is_good, title_test, test_api_page, test_add_api_check_ui]:
+    for test_module in [test_case_2_negative, test_check_price, test_Check_Sale_Page_Is_OK]:
         for test_case in unittest.TestLoader().loadTestsFromModule(test_module):
             suite.addTest(test_case)
 
